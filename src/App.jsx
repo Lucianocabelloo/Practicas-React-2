@@ -18,14 +18,16 @@ function App() {
   }
 
   const handleAddTask = () => {
+    if (inputValue === "") {
+      alert("El input está vacío");
+      return;
+    }
     if (editIndex !== null) {
-      // Estamos editando una tarea existente
       const newTareas = [...listaDeTareas];
       newTareas[editIndex] = inputValue;
       setListaDeTareas(newTareas);
       setEditIndex(null);
     } else {
-      // Estamos agregando una nueva tarea
       setListaDeTareas([...listaDeTareas, inputValue]);
     }
   
@@ -57,7 +59,7 @@ function App() {
   }
 
   useEffect(() => {
-    setListaDeTareas(getLocalStorage)
+    setListaDeTareas(getLocalStorage())
   }, [])
   
 
