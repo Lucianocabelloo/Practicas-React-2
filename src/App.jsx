@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import "./App.css";
 import { Input, Button } from "@nextui-org/react";
 import TaskList from "./components/TaskList";
@@ -8,8 +8,9 @@ import TaskList from "./components/TaskList";
 function App() {
 
   const [listaDeTareas, setListaDeTareas] = useState([]);
-
   const [inputValue, setinputValue] = useState("")
+  const [editIndex, setEditIndex] = useState(null); // 
+
 
   const handleInputValue = (e) => {
     const value = e.target.value
@@ -17,14 +18,49 @@ function App() {
   }
 
   const handleAddTask = () => {
-    setListaDeTareas([...listaDeTareas, inputValue]);
-    setinputValue("")
-    name()
+    if (editIndex !== null) {
+      // Estamos editando una tarea existente
+      const newTareas = [...listaDeTareas];
+      newTareas[editIndex] = inputValue;
+      setListaDeTareas(newTareas);
+      setEditIndex(null);
+    } else {
+      // Estamos agregando una nueva tarea
+      setListaDeTareas([...listaDeTareas, inputValue]);
+    }
+  
+    saveLocalStorage(listaDeTareas);
+    setinputValue("");
   }
 
-  function name() {
-    console.log(listaDeTareas)
+  const handleEditTask = (index) => {
+    const taskToEdit = listaDeTareas[index];
+    setinputValue(taskToEdit);
+    setEditIndex(index);
+    console.log(`Editar tarea en posición ${index}`);
   }
+
+  const handleDeleteTask = (index) => {
+    const newTareas = [...listaDeTareas];
+    newTareas.splice(index, 1);
+    setListaDeTareas(newTareas);
+    saveLocalStorage(newTareas);
+  }
+
+  const saveLocalStorage = (tareas) => {
+    localStorage.setItem("Task", JSON.stringify(tareas));
+  }
+
+  const getLocalStorage = () => {
+    const storedTasks = localStorage.getItem("Task");
+    return storedTasks ? JSON.parse(storedTasks) : [];
+  }
+
+  useEffect(() => {
+    setListaDeTareas(getLocalStorage)
+  }, [])
+  
+
   return (
     <>
       <h1 className=" text-6xl mb-10">Lista de tareas</h1>
@@ -35,7 +71,10 @@ function App() {
         </Button>
       </div>
       <div>
-      <TaskList tareas={listaDeTareas} />
+      <TaskList 
+          tareas={listaDeTareas} 
+          onEdit={handleEditTask}
+          onDelete={handleDeleteTask} />
       </div>
     </>
   );
