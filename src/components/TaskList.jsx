@@ -8,8 +8,8 @@ const TaskList = ({ tareas }) => {
     <div className='flex flex-col gap-5'>
 
     {
-        tareas.map(tarea => (
-            <Task key={tarea} taskName={tarea}/>
+        tareas.map((tarea, index) => (
+            <Task key={index } taskName={tarea}/>
         ))
     }
 
