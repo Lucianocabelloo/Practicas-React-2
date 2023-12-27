@@ -6,3 +6,8 @@ body{
   background-color: rgb(0, 0, 0);
   min-height: 100vh;
 }
+
+:root{
+  --toastify-color-info: #9455d3;
+  --toastify-color-warning: #e6124f;
+}

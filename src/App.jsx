@@ -2,12 +2,18 @@ import { useState, useEffect } from 'react';
 import "./App.css";
 import { Input, Button } from "@nextui-org/react";
 import TaskList from "./components/TaskList";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
 function App() {
 
-  const [listaDeTareas, setListaDeTareas] = useState([]);
+
+  const storedTasks = localStorage.getItem("Task");
+  const initialValue = storedTasks ? JSON.parse(storedTasks) : [];
+
+  const [listaDeTareas, setListaDeTareas] = useState(initialValue);
   const [inputValue, setinputValue] = useState("")
   const [editIndex, setEditIndex] = useState(null); // 
 
@@ -28,43 +34,70 @@ function App() {
       setListaDeTareas(newTareas);
       setEditIndex(null);
     } else {
-      setListaDeTareas([...listaDeTareas, inputValue]);
+      const nextListaDeTareas = [...listaDeTareas, inputValue]
+      setListaDeTareas(nextListaDeTareas);
     }
-  
-    saveLocalStorage(listaDeTareas);
     setinputValue("");
+    toast.success('✔ Se agrego una tarea con exito', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      });
   }
 
   const handleEditTask = (index) => {
     const taskToEdit = listaDeTareas[index];
     setinputValue(taskToEdit);
     setEditIndex(index);
-    console.log(`Editar tarea en posición ${index}`);
+    
+    toast.info('🤦‍♂️ Comienza la edicion!', {
+      info: "bg-red-600",
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      });
   }
 
   const handleDeleteTask = (index) => {
     const newTareas = [...listaDeTareas];
     newTareas.splice(index, 1);
     setListaDeTareas(newTareas);
-    saveLocalStorage(newTareas);
-  }
+    toast.warn('🤷‍♂️ Tarea eliminada ', {
+      info: "bg-red-600",
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      });
+    }
 
   const saveLocalStorage = (tareas) => {
     localStorage.setItem("Task", JSON.stringify(tareas));
   }
-
-  const getLocalStorage = () => {
-    const storedTasks = localStorage.getItem("Task");
-    return storedTasks ? JSON.parse(storedTasks) : [];
-  }
-
   useEffect(() => {
-    setListaDeTareas(getLocalStorage())
-  }, [])
-  
+
+    saveLocalStorage(listaDeTareas)
+
+  }, [listaDeTareas])
+
 
   return (
     <>
+    <ToastContainer/>
       <h1 className=" text-6xl mb-10">Lista de tareas</h1>
       <div className="flex justify-center items-center gap-3 mb-20">
         <Input type="text" label="Ingrese la tarea" value={inputValue} onChange={handleInputValue}  />
