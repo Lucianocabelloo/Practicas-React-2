@@ -28,7 +28,8 @@ function App() {
       setListaDeTareas(newTareas);
       setEditIndex(null);
     } else {
-      setListaDeTareas([...listaDeTareas, inputValue]);
+      const nextListaDeTareas = [...listaDeTareas, inputValue]
+      setListaDeTareas(nextListaDeTareas);
     }
   
     saveLocalStorage(listaDeTareas);
