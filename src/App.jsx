@@ -21,32 +21,32 @@ function App() {
   }, [play, stop]);
 
   const handleStopMusic = () => {
-    if (play.isPlaying) {
-      stop();
-      toast.info('🔇 Música detenida', {
-        info: "bg-blue-600",
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
-    } else {
-      toast.info('🔇 La música ya está detenida', {
-        info: "bg-blue-600",
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
-    }
+      if (play.isPlaying) {
+    stop();
+    toast.info('🔊 Música Iniciada', {
+      info: "bg-blue-600",
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  } else {
+    toast.info('🔇 Musica Detenida', {
+      info: "bg-blue-600",
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  }
   };
 
 
@@ -139,7 +139,7 @@ function App() {
     <>
     <ToastContainer/>
     <div className='flex gap-3'>
-      <button onClick={handleStopMusic}>Detener Música</button>
+      <button onClick={handleStopMusic}>Iniciar/Detener Música</button>
     </div>
       <h1 className=" text-6xl mb-10">Lista de tareas</h1>
       <div className="flex justify-center items-center gap-3 mb-20">
