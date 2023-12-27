@@ -4,10 +4,50 @@ import { Input, Button } from "@nextui-org/react";
 import TaskList from "./components/TaskList";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import useSound from 'use-sound';
+import backgroundMusic from "./assets/musica-navidad.mp3";
 
 
 
 function App() {
+
+  
+
+  const [play, { stop }] = useSound(backgroundMusic, { volume: 0.5, loop: true });
+
+  useEffect(() => {
+    play();
+    return () => stop(); // Detiene la música al desmontar el componente
+  }, [play, stop]);
+
+  const handleStopMusic = () => {
+    if (play.isPlaying) {
+      stop();
+      toast.info('🔇 Música detenida', {
+        info: "bg-blue-600",
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } else {
+      toast.info('🔇 La música ya está detenida', {
+        info: "bg-blue-600",
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+  };
 
 
   const storedTasks = localStorage.getItem("Task");
@@ -98,6 +138,9 @@ function App() {
   return (
     <>
     <ToastContainer/>
+    <div className='flex gap-3'>
+      <button onClick={handleStopMusic}>Detener Música</button>
+    </div>
       <h1 className=" text-6xl mb-10">Lista de tareas</h1>
       <div className="flex justify-center items-center gap-3 mb-20">
         <Input type="text" label="Ingrese la tarea" value={inputValue} onChange={handleInputValue}  />
