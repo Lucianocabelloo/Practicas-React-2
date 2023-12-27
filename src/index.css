@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 body{
-  background: url(./assets/navidad.gif);
-  background-position-y: -40px;
+  background: url("https://img.freepik.com/fotos-premium/fondo-pantalla-hd-8k-decoracion-arbol-navidad-imagen-fotografica-stock_915071-67474.jpg?w=2000");
+  background-position: center;
   background-repeat:repeat;
   background-size: cover;
   min-height: 100vh;

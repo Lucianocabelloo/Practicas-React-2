@@ -25,17 +25,17 @@ const Task = ({ key, taskName, onDelete, onEdit }) => {
   }, []);
 
    const containerClassName = click
-     ? "bg-zinc-800 p-3 rounded-md flex items-center justify-between flex-col md:flex-row gap-5"
-     : "bg-red-900 p-3 rounded-md flex items-center justify-between line-through text-lg flex-col md:flex-row";
+     ? "bg-green-700 p-3 rounded-md flex items-center justify-between flex-col md:flex-row gap-5"
+     : "bg-red-900 p-3 rounded-md flex items-center justify-between line-through text-lg flex-col md:flex-row gap-5";
 
   return (
     <div className={containerClassName} onClick={handleChange} key={key}>
       <h2>{taskName}</h2>
       <ButtonGroup className="gap-0.3  ">
-        <Button onClick={onEdit} variant="ghost" color="secondary">
+        <Button onClick={onEdit} variant="ghost" color="secondary" className=" text-slate-200	font-semibold">
           Editar
         </Button>
-        <Button onClick={onDelete} variant="ghost" color="danger">
+        <Button onClick={onDelete} variant="ghost" color="danger" className=" text-slate-200	 font-semibold">
           Borrar
         </Button>
       </ButtonGroup>

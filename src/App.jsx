@@ -14,40 +14,45 @@ function App() {
   
 
   const [play, { stop }] = useSound(backgroundMusic, { volume: 0.5, loop: true });
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
 
   useEffect(() => {
-    play();
-    return () => stop(); // Detiene la música al desmontar el componente
-  }, [play, stop]);
-
-  const handleStopMusic = () => {
-      if (play.isPlaying) {
-    stop();
-    toast.info('🔊 Música Iniciada', {
-      info: "bg-blue-600",
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "colored",
-    });
-  } else {
-    toast.info('🔇 Musica Detenida', {
-      info: "bg-blue-600",
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "colored",
-    });
-  }
+    if (isMusicPlaying) {
+      play();
+    } else {
+      stop();
+    }
+  }, [isMusicPlaying, play, stop]);
+  
+  const handleToggleMusic = () => {
+    setIsMusicPlaying(prevState => !prevState);
+    if (!isMusicPlaying) {
+      toast.info('🎵 Música iniciada', {
+        info: "bg-blue-600",
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } else {
+      toast.info('🔇 Música detenida', {
+        info: "bg-blue-600",
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
   };
+  
 
 
   const storedTasks = localStorage.getItem("Task");
@@ -139,7 +144,7 @@ function App() {
     <>
     <ToastContainer/>
     <div className='flex gap-3'>
-      <button onClick={handleStopMusic}>Iniciar/Detener Música</button>
+      <button onClick={handleToggleMusic}>Iniciar/Detener Música</button>
     </div>
       <h1 className=" text-6xl mb-10">Lista de tareas</h1>
       <div className="flex justify-center items-center gap-3 mb-20">
