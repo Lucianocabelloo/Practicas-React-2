@@ -11,7 +11,7 @@
 ###
 
 <p align="left">-📍 Soy de Tucuman, Argentina.<br>
-<br>-🔭 En este proyecto estare trabajando en una web en la cual consta de una To do list<br></p>
+<br>-🔭 En este proyecto estare trabajando en una web en la cual consta de una To do list con tematica navideña<br></p>
 
 ###
 
