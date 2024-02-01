@@ -1,4 +1,4 @@
-<h1 align="center"> Alta Peli 🎨 </h1>
+<h1 align="center"> Jo Jo Jo List </h1>
 
 ###
 
