@@ -1,27 +1,32 @@
 /* eslint-disable react/prop-types */
-import Task from './Task'
+import Task from "./Task";
 
-
-const TaskList = ({ tareas, onEdit, onDelete }) => {
+const TaskList = ({
+  listaDeTareas,
+  setListaDeTareas,
+  setEditar,
+  setId,
+  setValue,
+}) => {
+  console.log(listaDeTareas);
   return (
     <>
-    <div className='flex flex-col gap-5'>
-
-
-    {
- tareas.length ?
-  tareas.map((tarea, index) => (
-    <Task key={index} taskName={tarea} onEdit={() => onEdit(index)} onDelete={onDelete} />
-  ))
-  :
-  <p>No hay tareas disponibles</p>
-
-}
-
-
-    </div>
+      <div className="flex flex-col gap-5">
+        {listaDeTareas.map((tarea) => {
+          return (
+            <Task
+              key={tarea.id}
+              tarea={tarea}
+              setListaDeTareas={setListaDeTareas}
+              setEditar={setEditar}
+              setId={setId}
+              setValue={setValue}
+            ></Task>
+          );
+        })}
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default TaskList
+export default TaskList;
